@@ -3,7 +3,7 @@ import struct
 import numpy as np
 import pdb
 
-path = "Computer-Vision-Course/homework1/MNIST/raw/"
+path = "MNIST/raw/"
 
 class Dataset:
     def __init__(self, train=True):

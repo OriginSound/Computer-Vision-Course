@@ -16,7 +16,6 @@ class MyNetworkModel:
         self.W2 = np.random.normal(scale=np.sqrt(2/(hidden+10)), size=(hidden, 10))
         self.b2 = np.zeros(10)
 
-
     def forward(self, X, Y):
         """  X: (bs, 28*28)    Y: (bs, )  """
 
@@ -44,6 +43,7 @@ class MyNetworkModel:
         # raw output ==> probability
         out_shift = out3 - np.max(out3, axis=1, keepdims=True)
         prob = np.exp(out_shift) / np.sum(np.exp(out_shift), axis=-1, keepdims=True)
+        pred = np.argmax(prob, axis=1)
 
         ### Loss
         loss = -np.mean(np.log(prob[np.arange(len(Y)), Y] + 1e-10))
@@ -65,15 +65,15 @@ class MyNetworkModel:
         self.grad_W1 = X.T @ grad_out1     # (28*28, hidden)
         self.grad_b1 = grad_out1.sum(0)    # (hidden,)
 
-        return loss 
+        return loss, out3, pred  
     
     def predict(self, X):
         out = (2*X-1) @ self.W1 + self.b1 
         out[out < 0] = 0
         out = out @ self.W2 + self.b2
-        predict = np.argmax(out, axis=1)
-        
-        return out, predict, loss      
+        pred = np.argmax(out, axis=1)
+
+        return pred, out
 
     def set_train_config(self, lr, decay):
         self.lr=lr 
