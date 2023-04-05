@@ -1,6 +1,6 @@
 from model import MyNetworkModel
 from dataset import Dataset, DataLoader
-from utils import test
+from utils import test, visualization 
 
 import os 
 checkpoints = [file for file in os.listdir() if file.startswith("checkpoint")]
@@ -14,4 +14,6 @@ simpleModel.load(checkpoints[-1])
 
 loss, accuracy = test(TestDataLoader, simpleModel)
 print(f"[Test Set] Loss:{loss:1.4f}  Accuracy: {100*accuracy:3.2f}%")
+
+visualization(Model=simpleModel)
 

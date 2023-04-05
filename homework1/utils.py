@@ -1,5 +1,7 @@
 import numpy as np 
+import matplotlib as mpl
 import matplotlib.pyplot as plt 
+from matplotlib.colors import ListedColormap
 
 
 def test(Loader, Model):
@@ -38,11 +40,36 @@ def plot(data):
     fig.savefig("plot.png")
     fig.show()
 
-def visualization(Model):
-    W1 = Model.W1 
-    W2 = Model.W2 
-    b1 = Model.b1 
-    b2 = Model.b2 
+
+top = mpl.colormaps['Oranges_r'].resampled(128)
+bottom = mpl.colormaps['Blues'].resampled(128)
+newcolors = np.vstack((top(np.linspace(0, 1, 128)),
+                       bottom(np.linspace(0, 1, 128))))
+newcmp = ListedColormap(newcolors, name='OrangeBlue')
+
+def visualization(Model, cmap=newcmp):
+    W1 = Model.W1.T
+    W2 = Model.W2.T
+    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(18, 10))
+    # fig.tight_layout()
+
+    psm = axs[0].pcolormesh(W1, cmap=cmap)
+    fig.colorbar(psm, ax=axs[0])
+    axs[0].set_xlabel("size of input")
+    axs[0].set_ylabel("size of hidden")
+    axs[0].set_title("First Layer")
+
+    psm = axs[1].pcolormesh(W2, cmap=cmap)
+    fig.colorbar(psm, ax=axs[1])
+    axs[1].set_xlabel("size of hidden")
+    axs[1].set_ylabel("size of output")
+    axs[1].set_title("Second Layer")
+    
+    fig.subplots_adjust(left=0.1, right=0.95, hspace=0.5)
+    fig.savefig("visualization.png")
+    fig.show()
+
+
 
 
 

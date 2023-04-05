@@ -21,5 +21,12 @@ python test.py
 ```
 
 #### Results
-**Loss: 0.3017**,   **Accuracy: 91.78%.**
+**<center>Loss: 0.3017**,   **Accuracy: 91.78%.</center>**
 
+#### Loss & Accuracy
+
+<div align=center><img src="./homework1/plot.png" width="90%" height="90%"></div> 
+
+#### Visualization of Parameters
+
+<div align=center><img src="./homework1/visualization.png" width="90%" height="90%"></div>
