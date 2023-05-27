@@ -1,4 +1,4 @@
-# Computer-Vision-Course
+# Computer-Vision-Course-PJ1
 Homeworks of CV courses 
 
 ## Homework 1
